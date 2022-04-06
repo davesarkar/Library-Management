@@ -29,14 +29,25 @@ def addBook(request):
             author = author
         )
         return redirect('admin_home')
+    context = {'page':'create'}
+    return render(request, 'library/add-book.html', context)
 
-    return render(request, 'library/add-book.html')
+def editBook(request, id):
+    book = Book.objects.get(id=id)
+    if request.POST:
+        name = request.POST['name']
+        author = request.POST['author']
+        book.name = name
+        book.author = author
+        book.save()
+        return redirect('admin_home')
+    context = {'book':book, 'page':'edit'}
+    return render(request, 'library/add-book.html', context)
 
-def editBook(request):
-    return render(request, 'library/add-book.html')
-
-def deleteBook(request):
-    return 
+def deleteBook(request, id):
+    book = Book.objects.get(id=id)
+    book.delete()
+    return redirect('admin_home')
 
 def studentHome(request):
     return render(request, 'library/student-home.html')
