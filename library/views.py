@@ -28,35 +28,35 @@ def register(request):
         user.first_name = request.POST['f_name']
         user.last_name = request.POST['l_name']
         user.email = request.POST['email']
-        user.role = 'Admin'
+        user.role = request.POST['role']
         user.save()
         return redirect('admin_home')
     context = {'message':message}
     return render(request, 'library/register.html', context)
 
 def login_view(request):
-    if request.POST:
-        username = request.POST['username']
-        password = request.POST['password']
-    
-        user = authenticate(username=username, password=password)
-        
-        if user:
-            login(request, user)
-            if request.user.role != 'Admin':
-                return redirect('student-home')
-            return redirect('admin_home')
-        else:
-            return HttpResponse('Invalid Credentials')
-    return render(request, 'library/login.html')
+    if not request.POST:
+        return render(request, 'library/login.html')
+    username = request.POST['username']
+    password = request.POST['password']
 
+    user = authenticate(username=username, password=password)
+
+    if not user:
+        return HttpResponse('Invalid Credentials')
+    login(request, user)
+    if request.user.role == 'Student':
+        return redirect('student-home')
+    return redirect('admin_home')
+
+@login_required(login_url='login')
 def logout_view(request):
     logout(request)
     return HttpResponse('Logged out Successfully!')
 
 @login_required(login_url='login')
 def home(request):
-    if request.user.role != 'Admin':
+    if request.user.role == 'Student':
         return HttpResponse('You are not allowed here !')
     books = Book.objects.all()
     context = {'books':books}
@@ -64,7 +64,7 @@ def home(request):
 
 @login_required(login_url='login')
 def addBook(request):
-    if request.user.role != 'Admin':
+    if request.user.role == 'Student':
         return HttpResponse('You are not allowed here !')
     if request.POST:
         name = request.POST['name']
@@ -80,7 +80,7 @@ def addBook(request):
 
 @login_required(login_url='login')
 def editBook(request, id):
-    if request.user.role != 'Admin':
+    if request.user.role == 'Student':
         return HttpResponse('You are not allowed here !')
     book = Book.objects.get(id=id)
     if request.POST:
@@ -95,7 +95,7 @@ def editBook(request, id):
 
 @login_required(login_url='login')
 def deleteBook(request, id):
-    if request.user.role != 'Admin':
+    if request.user.role == 'Student':
         return HttpResponse('You are not allowed here !')
     book = Book.objects.get(id=id)
     book.delete()

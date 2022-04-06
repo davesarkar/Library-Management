@@ -11,23 +11,30 @@
             {% endif %}
             <p>
                 <label for="">First name:</label>
-                <input class="form-control" type="text" name ="f_name">
+                <input required class="form-control" type="text" name ="f_name">
             </p>
             <p>
                 <label for="">Last name:</label>
-                <input class="form-control" type="" name="l_name">
+                <input required class="form-control" type="" name="l_name">
             </p>
             <p>
                 <label for="">Email address:</label>
-                <input class="form-control" type="email" name="email">
+                <input required class="form-control" type="email" name="email">
+            </p>
+            <p>
+                <label for="">Role:</label>
+                <select required name="role" class="form-control">
+                    <option value="Admin">Admin</option>
+                    <option value="Student">Student</option>
+                </select>
             </p>
             <p>
                 <label for="">Username:</label>
-                <input class="form-control" type="text" name="username">
+                <input required class="form-control" type="text" name="username">
             </p>
             <p>
                 <label for="">Password:</label>
-                <input class="form-control" type="password" name="password">
+                <input required class="form-control" type="password" name="password">
             </p>
             <input type="submit">
             <p>
