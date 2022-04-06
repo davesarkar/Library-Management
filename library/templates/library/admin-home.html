@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1">
+                    <h1>
+                        <center>All Books</center>
+                    </h1>
+                </span>
+            </div>
+        </nav>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ book.name }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>
+                            <a href="" type="button" class="btn">Edit</a>
+                            <a href="" type="button" class="btn">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="d-grid gap-3 col-6 mx-auto">
+            <a href="{% url 'add-book' %}"
+               type="button"
+               class="btn btn-outline-success">Add Book</a>
+        </div>
+    </div>
+{% endblock content %}
