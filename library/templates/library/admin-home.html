@@ -26,12 +26,15 @@
                         <td>{{ book.name }}</td>
                         <td>{{ book.author }}</td>
                         <td>
-                            <a href="{% url 'edit-book' book.id %}" type="button" class="btn btn-outline-warning">Edit</a>
-                            <a href="{% url 'delete-book' book.id %}" type="button" class="btn btn-outline-danger">Delete</a>
+                            <a href="{% url 'edit-book' book.id %}"
+                               type="button"
+                               class="btn btn-outline-warning">Edit</a>
+                            <a href="{% url 'delete-book' book.id %}"
+                               type="button"
+                               class="btn btn-outline-danger">Delete</a>
                         </td>
                     </tr>
                 {% endfor %}
-                
             </tbody>
         </table>
         <div class="d-grid gap-3 col-6 mx-auto">
